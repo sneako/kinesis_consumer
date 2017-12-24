@@ -20,8 +20,11 @@ and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/kinesis_consumer](https://hexdocs.pm/kinesis_consumer).
 
 
-## Planned Features
+## Planning
 
 1. Consume kinesis stream
+  - Start application, which starts a 'producer' for each configured stream
+    1. Get all shard ids
+    1. Start one process for each shard, that pulls records when it receives a message and sends them back to producer
 1. Parse json to ecto model
 1. Insert ecto models
