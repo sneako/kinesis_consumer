@@ -7,6 +7,9 @@ defmodule KinesisConsumer.Kinesis do
 
   require Logger
 
+  @doc """
+  Get a list of Shard structs representing all shards for the given stream
+  """
   @spec get_shards(String.t()) :: [Shard.t()]
   def get_shards(stream_name) do
     {:ok, %{"StreamDescription" => %{"Shards" => shards}}} =
@@ -19,6 +22,9 @@ defmodule KinesisConsumer.Kinesis do
     end)
   end
 
+  @doc """
+  Pull demand from a shard
+  """
   @spec latest_records(Shard.t(), integer) :: {Shard.t(), List.t()}
   def latest_records(%Shard{iterator: nil} = shard, demand) do
     latest_records(%{shard | iterator: shard_iterator(shard)}, demand)
@@ -32,11 +38,14 @@ defmodule KinesisConsumer.Kinesis do
            {%{shard | iterator: next_shard_iterator}, extract_record_data(records)}
 
          other ->
-           Logger.error("Unexpected kinesis response: #{inspect(other)}")
+           Logger.error(fn -> "Unexpected kinesis response: #{inspect(other)}" end)
            {shard, []}
        end
   end
 
+  @doc """
+  Get the shard iterator for a shard
+  """
   @spec shard_iterator(Shard.t()) :: String.t()
   def shard_iterator(shard) do
     {:ok, %{"ShardIterator" => shard_iterator}} =

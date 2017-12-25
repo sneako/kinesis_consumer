@@ -7,8 +7,6 @@ defmodule KinesisConsumer.Stream do
 
   alias KinesisConsumer.Kinesis
 
-  require Logger
-
   def start_link(stream_name) do
     GenStage.start_link(__MODULE__, stream_name, name: stream_name)
   end
