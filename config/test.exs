@@ -1,5 +1,9 @@
 use Mix.Config
 
+config :kinesis_consumer,
+  record_handler: KinesisConsumer.RecordHandler,
+  stream_name: "test_stream"
+
 config :ex_aws,
   access_key_id: "test",
   secret_access_key: "test",
