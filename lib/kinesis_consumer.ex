@@ -1,18 +1,6 @@
 defmodule KinesisConsumer do
   @moduledoc """
-  Documentation for KinesisConsumer.
+  Just configure the kinesis streams and start the application!
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> KinesisConsumer.hello
-      :world
-
-  """
-  def hello do
-    :world
-  end
 end

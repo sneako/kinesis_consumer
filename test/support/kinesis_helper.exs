@@ -4,6 +4,7 @@ defmodule Test.KinesisHelper do
   """
 
   alias ExAws.Kinesis
+
   require Logger
 
   @event_buffer_length 10
@@ -68,6 +69,15 @@ defmodule Test.KinesisHelper do
            Logger.warn(fn -> "Kinesis, unexpected response: #{inspect(other)}" end)
            :error
        end
+  end
+
+  @spec write_n_values(integer, String.t()) :: [String.t()]
+  def write_n_values(n, stream_name) do
+    Enum.map(1..n, fn i ->
+      value = to_string(i)
+      write(value, stream_name)
+      value
+    end)
   end
 
   defp to_records(events) do

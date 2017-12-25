@@ -7,7 +7,7 @@ defmodule KinesisConsumer.Kinesis do
 
   require Logger
 
-  @spec get_shards(String.t) :: [Shard.t]
+  @spec get_shards(String.t()) :: [Shard.t()]
   def get_shards(stream_name) do
     {:ok, %{"StreamDescription" => %{"Shards" => shards}}} =
       stream_name

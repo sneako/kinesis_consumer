@@ -1,6 +1,6 @@
 defmodule KinesisConsumer.Stream do
   @moduledoc """
-  GenStage kinesis stream producer
+  GenStage Kinesis stream producer
   """
 
   use GenStage
@@ -12,8 +12,6 @@ defmodule KinesisConsumer.Stream do
   def start_link(stream_name) do
     GenStage.start_link(__MODULE__, stream_name, name: stream_name)
   end
-
-  ## Callbacks
 
   def init(stream_name) do
     shards = Kinesis.get_shards(stream_name)
@@ -27,11 +25,6 @@ defmodule KinesisConsumer.Stream do
 
   def handle_demand(demand, state) do
     {:noreply, [], %{state | demand: demand + state.demand}}
-  end
-
-  def handle_info(:pull_records, %{shards: nil} = state) do
-    Logger.error("No shards to pull from. #{inspect(state)}")
-    {:noreply, [], state}
   end
 
   def handle_info(:pull_records, state) do

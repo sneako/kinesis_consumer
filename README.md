@@ -19,6 +19,9 @@ Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_do
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/kinesis_consumer](https://hexdocs.pm/kinesis_consumer).
 
+## Running Tests
+#### Tests rely on [kinesalite](https://github.com/mhart/kinesalite)
+Start kinesalite like so: `kinesalite --deleteStreamMs 0 --createStreamMs 0 --updateStreamMs 0`
 
 ## Planning
 

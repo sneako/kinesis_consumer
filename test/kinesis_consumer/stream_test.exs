@@ -24,27 +24,9 @@ defmodule Test.KinesisConsumer.StreamTest do
     assert data in records
   end
 
-  test "Pulls three records", %{stream_name: stream_name} do
-    data =
-      Enum.map(0..2, fn i ->
-        value = to_string(i)
-        :ok = KinesisHelper.write(value, stream_name)
-        value
-      end)
-
+  test "Pulls one hundred records", %{stream_name: stream_name} do
+    data = KinesisHelper.write_n_values(100, stream_name)
     {:ok, producer} = GenStage.start_link(Stream, stream_name)
-    assert data == GenStage.stream([producer]) |> Enum.take(3)
-  end
-
-  test "Pulls 1000 records", %{stream_name: stream_name} do
-    data =
-      Enum.map(0..999, fn i ->
-        value = to_string(i)
-        :ok = KinesisHelper.write(value, stream_name)
-        value
-      end)
-
-    {:ok, producer} = GenStage.start_link(Stream, stream_name)
-    assert data == GenStage.stream([producer]) |> Enum.take(1000)
+    assert data == GenStage.stream([producer]) |> Enum.take(100)
   end
 end
