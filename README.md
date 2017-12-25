@@ -1,6 +1,6 @@
 # KinesisConsumer
 
-**TODO: Add description**
+Pull Kinesis records in to a GenStage producer, allowing you to configure your own consumers.
 
 ## Installation
 
@@ -22,12 +22,3 @@ be found at [https://hexdocs.pm/kinesis_consumer](https://hexdocs.pm/kinesis_con
 ## Running Tests
 #### Tests rely on [kinesalite](https://github.com/mhart/kinesalite)
 Start kinesalite like so: `kinesalite --deleteStreamMs 0 --createStreamMs 0 --updateStreamMs 0`
-
-## Planning
-
-1. Consume kinesis stream
-  - Start application, which starts a 'producer' for each configured stream
-    1. Get all shard ids
-    1. Start one process for each shard, that pulls records when it receives a message and sends them back to producer
-1. Parse json to ecto model
-1. Insert ecto models
